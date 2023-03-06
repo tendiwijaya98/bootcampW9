@@ -1,0 +1,163 @@
+{
+  "openapi": "3.0.3",
+  "options": {
+    "info": {
+      "title": "Movies API 3.0",
+      "description": "Movies API",
+      "contact": {
+        "email": "developer@mail.com"
+      },
+      "version": "1.0.11"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/movies": {
+      "get": {
+        "summary": "Find all movies",
+        "tags": [
+          "movies"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful find movies",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/movies"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create movie",
+        "tags": [
+          "movies"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "description": "Create new movie",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/movies"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success create movie",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/success"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/movies/{movieId}": {
+      "get": {
+        "summary": "Find movie by Id",
+        "tags": [
+          "movies"
+        ],
+        "parameters": [
+          {
+            "name": "movieId",
+            "in": "path",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true
+          },
+          {
+            "name": "access_token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/movies"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "movies": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 19
+          },
+          "title": {
+            "type": "string",
+            "example": "Party Monster"
+          },
+          "genres": {
+            "type": "string",
+            "example": "Documentary"
+          },
+          "year": {
+            "type": "string",
+            "example": 2007
+          }
+        }
+      },
+      "success": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Movie created successfully"
+          }
+        }
+      }
+    }
+  }
+}
